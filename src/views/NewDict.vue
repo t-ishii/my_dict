@@ -1,10 +1,9 @@
 <template>
-  <div>Home</div>
+  <div>New Dict</div>  
 </template>
 
 <script>
-
 export default {
-  name: 'home',
+  name: 'NewDict'
 }
 </script>

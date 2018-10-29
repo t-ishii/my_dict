@@ -3,16 +3,24 @@
     <li role="menuitem" class="el-menu-item"><el-input 
       placeholder="Keyword"
       suffix-icon="el-icon-search"></el-input></li>
-    <el-menu-item index="/">Home</el-menu-item>
-    <el-menu-item index="/about">About</el-menu-item>
+    <el-menu-item index="/">
+      <i class="el-icon-menu"></i>
+    </el-menu-item>
+    <el-menu-item index="/new">
+      <i class="el-icon-circle-plus-outline"></i>
+    </el-menu-item>
+    <el-menu-item index="/about">
+      <i class="el-icon-question"></i>
+    </el-menu-item>
   </el-menu>
 </template>
 <script>
+
 export default {
   name: 'NavMenu',
   data () {
     return {
-      activeIndex: 'home'
+      activeIndex: '/'
     }
   }
 }
