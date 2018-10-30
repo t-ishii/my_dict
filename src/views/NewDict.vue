@@ -28,7 +28,6 @@ export default {
   data() {
 
     const validateEmpty = (rule, value, callback) => {
-      console.log([rule, value, callback])
       if (value === '') {
         callback(new Error(`Please input the ${rule.field}`))
       }
