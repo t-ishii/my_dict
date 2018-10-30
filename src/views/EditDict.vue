@@ -9,7 +9,7 @@
           <el-input type="textarea" v-model="form.description" :rows="5"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSubmit">Create</el-button>
+          <el-button type="primary" @click="onSubmit">{{ submitButton }}</el-button>
         </el-form-item>
       </el-form>
     </el-tab-pane>
@@ -25,29 +25,19 @@ import Preview from '@/components/Preview.vue'
 export default {
   name: 'EditDict',
   components: { Preview },
-  props: {
-    form: {
-      type: Object,
-      default: {
-        keyword: '',
-        description: ''
-      }
-    }
-  },
   data() {
-
     const validateEmpty = (rule, value, callback) => {
       if (value === '') {
         callback(new Error(`Please input the ${rule.field}`))
       }
       callback()
     }
-
+    const keywords = this.$route.query.keywords
     return {
       activeName: 'form',
       form: {
-        keyword: '',
-        description: ''
+        keyword: keywords ? keywords.keyword : '',
+        description: keywords ? keywords.description : ''
       },
       formRule: {
         keyword: [
@@ -56,7 +46,8 @@ export default {
         description: [
           { validator: validateEmpty, trigger: 'blur' }
         ]
-      }
+      },
+      submitButton: keywords ? 'Update' : 'Create'
     }
   },
   methods: {

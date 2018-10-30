@@ -6,7 +6,7 @@
     <el-menu-item index="/">
       <i class="el-icon-menu"></i>
     </el-menu-item>
-    <el-menu-item index="/edit">
+    <el-menu-item index="/new">
       <i class="el-icon-circle-plus-outline"></i>
     </el-menu-item>
     <el-menu-item index="/about">

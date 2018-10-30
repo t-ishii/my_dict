@@ -59,7 +59,11 @@ export default {
       console.log([index, row])
     },
     handleClickEdit(index, row) {
-      this.$router.push({ name: 'edit' })
+      const send = {
+        keyword: row.keyword,
+        description: row.description
+      }
+      this.$router.push({ name: 'edit', query: { keywords: send }})
     }
   }
 }

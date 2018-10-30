@@ -13,6 +13,11 @@ export default new Router({
       component: Home
     },
     {
+      path: '/new',
+      name: 'new',
+      component: EditDict
+    },
+    {
       path: '/edit',
       name: 'edit',
       component: EditDict
