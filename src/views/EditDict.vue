@@ -23,8 +23,17 @@
 import Preview from '@/components/Preview.vue'
 
 export default {
-  name: 'NewDict',
+  name: 'EditDict',
   components: { Preview },
+  props: {
+    form: {
+      type: Object,
+      default: {
+        keyword: '',
+        description: ''
+      }
+    }
+  },
   data() {
 
     const validateEmpty = (rule, value, callback) => {

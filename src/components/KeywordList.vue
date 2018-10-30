@@ -59,7 +59,7 @@ export default {
       console.log([index, row])
     },
     handleClickEdit(index, row) {
-      console.log([index, row])
+      this.$router.push({ name: 'edit' })
     }
   }
 }

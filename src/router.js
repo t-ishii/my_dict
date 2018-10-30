@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import NewDict from './views/NewDict.vue'
+import EditDict from './views/EditDict.vue'
 
 Vue.use(Router)
 
@@ -13,9 +13,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/new',
-      name: 'new',
-      component: NewDict
+      path: '/edit',
+      name: 'edit',
+      component: EditDict
     },
     {
       path: '/about',
