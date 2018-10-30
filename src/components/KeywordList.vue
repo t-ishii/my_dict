@@ -4,8 +4,8 @@
     <el-table-column prop="description" label="description"></el-table-column>
     <el-table-column label="">
       <template slot-scope="scope">
-        <el-button icon="el-icon-delete" circle></el-button>
-        <el-button icon="el-icon-edit" circle></el-button>
+        <el-button icon="el-icon-delete" circle @click="handleClickDelete(scope.$index, scope.row)"></el-button>
+        <el-button icon="el-icon-edit" circle @click="handleClickEdit(scope.$index, scope.row)"></el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -34,6 +34,14 @@ export default {
           description: 'Sample'
         }
       ]
+    }
+  },
+  methods: {
+    handleClickDelete(index, row) {
+      console.log([index, row])
+    },
+    handleClickEdit(index, row) {
+      console.log([index, row])
     }
   }
 }
