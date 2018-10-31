@@ -21,17 +21,12 @@
 
 <script>
 import Preview from '@/components/Preview.vue'
+import validate from '@/utils/validator'
 
 export default {
   name: 'EditDict',
   components: { Preview },
   data() {
-    const validateEmpty = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error(`Please input the ${rule.field}`))
-      }
-      callback()
-    }
     const keywords = this.$route.query.keywords
     return {
       activeName: 'form',
@@ -41,10 +36,10 @@ export default {
       },
       formRule: {
         keyword: [
-          { validator: validateEmpty, trigger: 'blur' }
+          { validator: validate.validateEmpty, trigger: 'blur' }
         ],
         description: [
-          { validator: validateEmpty, trigger: 'blur' }
+          { validator: validate.validateEmpty, trigger: 'blur' }
         ]
       },
       submitButton: keywords ? 'Update' : 'Create'
