@@ -1,4 +1,4 @@
-[*.{html,vue}]
+[*.{js,html,vue}]
 
 indent_style = space
 indent_size = 2
