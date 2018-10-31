@@ -4,29 +4,35 @@ import Home from './views/Home.vue'
 import EditDict from './views/EditDict.vue'
 import Login from './views/Login.vue'
 
+import firebase from 'firebase'
+import 'firebase/auth'
+
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
     {
       path: '/login',
       name: 'login',
       component: Login
     },
     {
+      path: '/',
+      name: 'home',
+      component: Home,
+      meta: { requiresAuth: true }
+    },
+    {
       path: '/new',
       name: 'new',
-      component: EditDict
+      component: EditDict,
+      meta: { requiresAuth: true }
     },
     {
       path: '/edit',
       name: 'edit',
-      component: EditDict
+      component: EditDict,
+      meta: { requiresAuth: true }
     },
     {
       path: '/about',
@@ -38,3 +44,22 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        next()
+      } else {
+        next({
+          name: 'login',
+          query: { redirect: to.fullPath }
+        })
+      }
+    })
+  } else {
+    next()
+  }
+})
+
+export default router

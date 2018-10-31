@@ -7,6 +7,12 @@ import ElementUI from 'element-ui'
 import locale from 'element-ui/lib/locale/lang/ja'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import firebase from 'firebase'
+import 'firebase/firebase-app'
+import firebaseConfig from './firebase.config.json'
+
+firebase.initializeApp(firebaseConfig)
+
 Vue.config.productionTip = false
 
 Vue.use(ElementUI, { locale })

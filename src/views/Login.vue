@@ -42,7 +42,7 @@ export default {
           firebase.auth()
           .signInWithEmailAndPassword(this.form.email, this.form.password)
           .then((userCredential) => {
-            console.log(userCredential.credential)
+            console.log(userCredential.user.uid)
             this.$router.push({name: 'home'})
           })
         } else {
