@@ -7,6 +7,8 @@ import Login from './views/Login.vue'
 import firebase from 'firebase'
 import 'firebase/auth'
 
+import store from './store'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -48,7 +50,9 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+      const isLogin = !!user
+      store.commit('user/updateLoginState', isLogin)
+      if (isLogin) {
         next()
       } else {
         next({
