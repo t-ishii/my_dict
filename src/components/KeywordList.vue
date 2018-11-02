@@ -67,14 +67,13 @@ export default {
       this.deleteDialogVisible = false
       MyDict.delete(
         this.$store.state.user.uid,
-        this.deleteRow.id
+        this.deleteRow.keyword
       )
     },
     handleClickEdit(index, row) {
       const send = {
         keyword: row.keyword,
         description: row.description,
-        id: row.id
       }
       this.$router.push({ name: 'edit', query: { keywords: send }})
     }

@@ -34,7 +34,6 @@ export default {
       form: {
         keyword: keywords ? keywords.keyword : '',
         description: keywords ? keywords.description : '',
-        id: keywords ? keywords.id : ''
       },
       formRule: {
         keyword: [
