@@ -28,7 +28,7 @@ import 'firebase/auth'
 
 export default {
   name: 'NavMenu',
-  data () {
+  data() {
     return {
       activeIndex: '/'
     }

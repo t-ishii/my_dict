@@ -49,16 +49,25 @@ export default {
   },
   methods: {
     onSubmit() {
-      if (this.submitButton === 'Create') {
-        MyDict.insert(
+      const btnType = this.submitButton
+      let promise = null
+      
+      if (btnType === 'Create') {
+        promise = MyDict.insert(
           this.$store.state.user.uid,
           this.form
         )
-      } else if (this.submitButton === 'Update') {
-        MyDict.update(
+      } else if (btnType === 'Update') {
+        promise = MyDict.update(
           this.$store.state.user.uid,
           this.form
         )
+      }
+
+      if (promise !== null) {
+        promise.then(() => {
+          this.$router.push({ name: 'home' })
+        })
       }
     }
   }

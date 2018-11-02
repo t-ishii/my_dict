@@ -9,19 +9,22 @@ const MyDict = {
   listen(uid, callback) {
     firebase.database().ref(`dict/${uid}`).on('value', callback)
   },
+  unListen(uid, callback) {
+    firebase.database().ref(`dict/${uid}`).on('value', callback)
+  },
   all(uid) {
     return firebase.database().ref(`dict/${uid}`).once('value')
   },
   insert(uid, dict) {
     const newKey = getNewKey(uid)
     dict.id = newKey
-    firebase.database().ref(`dict/${uid}/${newKey}`).update(dict)
+    return firebase.database().ref(`dict/${uid}/${newKey}`).update(dict)
   },
   update(uid, dict) {
-    firebase.database().ref(`dict/${uid}/${dict.id}`).set(dict)
+    return firebase.database().ref(`dict/${uid}/${dict.id}`).set(dict)
   },
   delete(uid, id) {
-    firebase.database().ref(`dict/${uid}/${id}`).remove()
+    return firebase.database().ref(`dict/${uid}/${id}`).remove()
   }
 }
 

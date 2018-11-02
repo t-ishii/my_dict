@@ -27,19 +27,25 @@
 
 <script>
 import MyDict from '@/utils/MyDict'
+import store from '@/store'
+
+const callbackDictList = (snapshot) => {
+  const dicts = snapshot.val()
+  if (dicts) {
+    store.dispatch('dict/refresh', Object.values(dicts))
+  } else {
+    store.dispatch('dict/refresh',[])
+  }
+}
 
 export default {
   name: 'KeywordList',
   created() {
-    MyDict.listen(this.$store.state.user.uid, (snapshot) => {
-      const dicts = snapshot.val()
-      if (dicts) {
-        this.$store.dispatch('dict/refresh', Object.values(dicts))
-      } else {
-        this.$store.dispatch('dict/refresh',[])
-      }
-    })
+    MyDict.listen(this.$store.state.user.uid, callbackDictList)
     this.$store.dispatch('dict/load', this.$store.state.user.uid)
+  },
+  destroyed() {
+    MyDict.unListen(this.$store.state.user.uid, callbackDictList)
   },
   data() {
     return {
