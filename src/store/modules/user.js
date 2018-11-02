@@ -1,5 +1,6 @@
 const state = {
-  isLogin: false
+  isLogin: false,
+  uid: null
 }
 
 const getters = {
@@ -7,13 +8,21 @@ const getters = {
 }
 
 const mutations = {
-  updateLoginState(state, loginState) {
+  changeLoginState(state, loginState) {
     state.isLogin = loginState
+  },
+  setUid(state, uid) {
+    state.uid = uid
   }
 }
 
 const actions = {
-
+  updateLoginState({ commit }, loginState) {
+    commit('changeLoginState', loginState)
+  },
+  updateUid({ commit }, uid) {
+    commit('setUid', uid)
+  }
 }
 
 export default {

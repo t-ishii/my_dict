@@ -22,6 +22,7 @@
 <script>
 import Preview from '@/components/Preview.vue'
 import validate from '@/utils/validator'
+import MyDict from '@/utils/MyDict'
 
 export default {
   name: 'EditDict',
@@ -32,7 +33,8 @@ export default {
       activeName: 'form',
       form: {
         keyword: keywords ? keywords.keyword : '',
-        description: keywords ? keywords.description : ''
+        description: keywords ? keywords.description : '',
+        id: keywords ? keywords.id : ''
       },
       formRule: {
         keyword: [
@@ -47,7 +49,17 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('submit')
+      if (this.submitButton === 'Create') {
+        MyDict.insert(
+          this.$store.state.user.uid,
+          this.form
+        )
+      } else if (this.submitButton === 'Update') {
+        MyDict.update(
+          this.$store.state.user.uid,
+          this.form
+        )
+      }
     }
   }
 }

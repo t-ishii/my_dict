@@ -1,30 +1,35 @@
-import MyDict from '@/utils/Mydict'
-
-const DEFAULT_LIMIT = 10
+import MyDict from '@/utils/MyDict'
 
 const state = {
   dicts: []
 }
 
 const getters = {
-
 }
 
 const mutations = {
-  update(state, dicts) {
-    for (dict of dicts) {
-      state.dicts.push(dict)
-    }
+  updateAll(state, dicts) {
+    state.dicts = dicts
+  },
+  append(state, dict) {
+    state.dicts.push(dict)
+  },
+  clear(state) {
+    state.dicts = []
   }
 }
 
 const actions = {
-  limitToFirst({ commit }, uid, n = DEFAULT_LIMIT) {
-    MyDict.limitToFirst(uid, n).then(snapshot => {
-      if (Array.isArray(snapshot.val())) {
-        commit('update', snapshot.val())
+  load({ commit }, uid) {
+    MyDict.all(uid).then(snapshot => {
+      const dicts = snapshot.val()
+      if (dicts) {
+        commit('updateAll', Object.values(dicts))
       }
     })
+  },
+  refresh({ commit }, dicts) {
+    commit('updateAll', dicts)
   }
 }
 

@@ -15,10 +15,10 @@
       :visible.sync="deleteDialogVisible"
       title="削除確認"
       width="30%">
-      <span>{{ deleteKeyword }}を削除してもよろしいですか？</span>
+      <span>{{ deleteRow.keyword }}を削除してもよろしいですか？</span>
       <span slot="footer" class="dialog-footer">
         <el-button @click="deleteDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="deleteDialogVisible = false">OK</el-button>
+        <el-button type="primary" @click="doDelete">OK</el-button>
       </span>
     </el-dialog>
 
@@ -26,42 +26,49 @@
 </template>
 
 <script>
+import MyDict from '@/utils/MyDict'
+
 export default {
   name: 'KeywordList',
+  created() {
+    MyDict.listen(this.$store.state.user.uid, (snapshot) => {
+      const dicts = snapshot.val()
+      if (dicts) {
+        this.$store.dispatch('dict/refresh', Object.values(dicts))
+      } else {
+        this.$store.dispatch('dict/refresh',[])
+      }
+    })
+    this.$store.dispatch('dict/load', this.$store.state.user.uid)
+  },
   data() {
     return {
       deleteDialogVisible: false,
-      deleteKeyword: '',
-      keywords: [
-        {
-          keyword: 'TEST',
-          description: 'Sample'
-        },
-        {
-          keyword: 'TEST',
-          description: 'Sample'
-        },
-        {
-          keyword: 'TEST',
-          description: 'Sample'
-        },
-        {
-          keyword: 'TEST',
-          description: 'Sample'
-        }
-      ]
+      deleteRow: {},
+    }
+  },
+  computed: {
+    keywords() {
+      return this.$store.state.dict.dicts
     }
   },
   methods: {
     handleClickDelete(index, row) {
-      this.deleteKeyword = row.keyword
+      this.deleteRow = row
       this.deleteDialogVisible = true
-      console.log([index, row])
+    },
+    doDelete() {
+      this.deleteDialogVisible = false
+      MyDict.delete(
+        this.$store.state.user.uid,
+        this.deleteRow.id
+      )
     },
     handleClickEdit(index, row) {
       const send = {
         keyword: row.keyword,
-        description: row.description
+        description: row.description,
+        id: row.id
       }
       this.$router.push({ name: 'edit', query: { keywords: send }})
     }

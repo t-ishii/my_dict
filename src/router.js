@@ -51,7 +51,10 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     firebase.auth().onAuthStateChanged((user) => {
       const isLogin = !!user
-      store.commit('user/updateLoginState', isLogin)
+
+      store.dispatch('user/updateLoginState', isLogin)
+      store.dispatch('user/updateUid', isLogin ? user.uid : null)
+
       if (isLogin) {
         next()
       } else {

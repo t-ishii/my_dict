@@ -1,15 +1,27 @@
 import firebase from 'firebase'
 import 'firebase/database'
 
+const getNewKey = (uid) => {
+  return firebase.database().ref().child(`dict/${uid}`).push().key
+}
+
 const MyDict = {
   listen(uid, callback) {
     firebase.database().ref(`dict/${uid}`).on('value', callback)
   },
-  limitToFirst(uid, size) {
-    return firebase.database().ref(`dict/${uid}`).limitToFirst(size)
+  all(uid) {
+    return firebase.database().ref(`dict/${uid}`).once('value')
   },
-  limitToLast(uid, size) {
-    return firebase.database().ref(`dict/${uid}`).limitToLast(size)
+  insert(uid, dict) {
+    const newKey = getNewKey(uid)
+    dict.id = newKey
+    firebase.database().ref(`dict/${uid}/${newKey}`).update(dict)
+  },
+  update(uid, dict) {
+    firebase.database().ref(`dict/${uid}/${dict.id}`).set(dict)
+  },
+  delete(uid, id) {
+    firebase.database().ref(`dict/${uid}/${id}`).remove()
   }
 }
 
