@@ -1,16 +1,11 @@
 <template>
-  <el-menu :default-active="activeIndex" :router="true" mode="horizontal" @select="handleSelect">
+  <el-menu :default-active="activeMenu" :router="true" mode="horizontal" @select="handleSelect">
     <template v-if="isLogin">
-      <li role="menuitem" class="el-menu-item"><el-input 
-        placeholder="Keyword"
-        @input="handleInputKeyword"
-        v-model="keyword"
-        suffix-icon="el-icon-search"></el-input></li>
       <el-menu-item index="/">
         <i class="el-icon-menu"></i>
       </el-menu-item>
       <el-menu-item index="/new">
-        <i class="el-icon-circle-plus-outline"></i>
+        <i class="el-icon-edit"></i>
       </el-menu-item>
     </template>
     <el-menu-item index="/about">
@@ -32,13 +27,22 @@ export default {
   name: 'NavMenu',
   data() {
     return {
-      keyword: '',
-      activeIndex: '/'
+      keyword: ''
     }
   },
   computed: {
     isLogin() {
       return this.$store.state.user.isLogin
+    },
+    activeMenu: {
+      set(menuId) {
+        console.log(`set: ${menuId}`)
+        this.$store.commit('user/setActiveMenu', menuId)
+      },
+      get() {
+        console.log(`get: ${this.$store.state.user.activeMenu}`)
+        return this.$store.state.user.activeMenu
+      }
     }
   },
   methods: {
@@ -46,9 +50,6 @@ export default {
       if (key === '/login') {
         firebase.auth().signOut()
       }
-    },
-    handleInputKeyword() {
-      this.$store.commit('user/setSearchKeyword', this.keyword)
     }
   }
 }

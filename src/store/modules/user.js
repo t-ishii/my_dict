@@ -1,7 +1,7 @@
 const state = {
   isLogin: false,
   uid: null,
-  searchKeyword: ''
+  activeMenu: '/'
 }
 
 const getters = {
@@ -15,8 +15,9 @@ const mutations = {
   setUid(state, uid) {
     state.uid = uid
   },
-  setSearchKeyword(state, keyword) {
-    state.searchKeyword = keyword
+  setActiveMenu(state, menuId) {
+    console.log(menuId)
+    state.activeMenu = menuId
   }
 }
 

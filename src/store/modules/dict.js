@@ -13,9 +13,6 @@ const mutations = {
   },
   append(state, dict) {
     state.dicts.push(dict)
-  },
-  clear(state) {
-    state.dicts = []
   }
 }
 
