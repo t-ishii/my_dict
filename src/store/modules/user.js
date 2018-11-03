@@ -1,6 +1,7 @@
 const state = {
   isLogin: false,
-  uid: null
+  uid: null,
+  searchKeyword: ''
 }
 
 const getters = {
@@ -13,6 +14,9 @@ const mutations = {
   },
   setUid(state, uid) {
     state.uid = uid
+  },
+  setSearchKeyword(state, keyword) {
+    state.searchKeyword = keyword
   }
 }
 

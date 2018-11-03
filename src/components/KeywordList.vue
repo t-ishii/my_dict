@@ -30,9 +30,8 @@ import MyDict from '@/utils/MyDict'
 import store from '@/store'
 
 const callbackDictList = (snapshot) => {
-  const dicts = snapshot.val()
-  if (dicts) {
-    store.dispatch('dict/refresh', Object.values(dicts))
+  if (snapshot.exists()) {
+    store.dispatch('dict/refresh', Object.values(snapshot.val()))
   } else {
     store.dispatch('dict/refresh',[])
   }
@@ -55,7 +54,10 @@ export default {
   },
   computed: {
     keywords() {
-      return this.$store.state.dict.dicts
+      const searchKeyword = this.$store.state.user.searchKeyword
+      return this.$store.state.dict.dicts.filter(dict => {
+        return searchKeyword === '' || dict.keyword.startsWith(searchKeyword)
+      })
     }
   },
   methods: {

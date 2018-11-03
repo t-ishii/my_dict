@@ -22,9 +22,8 @@ const mutations = {
 const actions = {
   load({ commit }, uid) {
     MyDict.all(uid).then(snapshot => {
-      const dicts = snapshot.val()
-      if (dicts) {
-        commit('updateAll', Object.values(dicts))
+      if (snapshot.exists()) {
+        commit('updateAll', Object.values(snapshot.val()))
       }
     })
   },

@@ -3,6 +3,8 @@
     <template v-if="isLogin">
       <li role="menuitem" class="el-menu-item"><el-input 
         placeholder="Keyword"
+        @input="handleInputKeyword"
+        v-model="keyword"
         suffix-icon="el-icon-search"></el-input></li>
       <el-menu-item index="/">
         <i class="el-icon-menu"></i>
@@ -30,6 +32,7 @@ export default {
   name: 'NavMenu',
   data() {
     return {
+      keyword: '',
       activeIndex: '/'
     }
   },
@@ -43,6 +46,9 @@ export default {
       if (key === '/login') {
         firebase.auth().signOut()
       }
+    },
+    handleInputKeyword() {
+      this.$store.commit('user/setSearchKeyword', this.keyword)
     }
   }
 }
