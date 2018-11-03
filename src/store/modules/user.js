@@ -22,12 +22,7 @@ const mutations = {
 }
 
 const actions = {
-  updateLoginState({ commit }, loginState) {
-    commit('changeLoginState', loginState)
-  },
-  updateUid({ commit }, uid) {
-    commit('setUid', uid)
-  }
+
 }
 
 export default {
