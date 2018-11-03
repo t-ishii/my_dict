@@ -1,10 +1,10 @@
 <template>
   <el-form :model="form" :rules="formRule" label-width="120px" class="login" ref="loginForm">
     <el-form-item label="Email" prop="email">
-      <el-input v-model="form.email"></el-input>
+      <el-input v-model="form.email" @keydown.native.enter="submitForm"></el-input>
     </el-form-item>
     <el-form-item label="Password" prop="password">
-      <el-input type="password" v-model="form.password"></el-input>
+      <el-input type="password" v-model="form.password" @keydown.native.enter="submitForm"></el-input>
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm">Login</el-button>
