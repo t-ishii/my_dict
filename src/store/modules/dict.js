@@ -5,6 +5,9 @@ const state = {
 }
 
 const getters = {
+  find(state) {
+    return keyword => state.dicts.find(dict => dict.keyword === keyword)
+  }
 }
 
 const mutations = {

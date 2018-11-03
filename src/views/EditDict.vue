@@ -28,12 +28,21 @@ export default {
   name: 'EditDict',
   components: { Preview },
   data() {
-    const keywords = this.$route.query.keywords
+    const isExistsKeyword = !!this.$route.query.keyword
+
+    let keyword = ''
+    let description = ''
+
+    if (isExistsKeyword) {
+      keyword = this.$route.query.keyword
+      description = this.$store.getters['dict/find'](keyword).description
+    }
+
     return {
       activeName: 'form',
       form: {
-        keyword: keywords ? keywords.keyword : '',
-        description: keywords ? keywords.description : '',
+        keyword: keyword,
+        description: description,
       },
       formRule: {
         keyword: [
@@ -43,7 +52,7 @@ export default {
           { validator: validate.validateEmpty, trigger: 'blur' }
         ]
       },
-      submitButton: keywords ? 'Update' : 'Create'
+      submitButton: isExistsKeyword ? 'Update' : 'Create'
     }
   },
   methods: {
