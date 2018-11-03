@@ -41,9 +41,12 @@ export default {
         if (valid) {
           firebase.auth()
           .signInWithEmailAndPassword(this.form.email, this.form.password)
-          .then((userCredential) => {
-            console.log(userCredential.user.uid)
+          .then(() => {
             this.$router.push({name: 'home'})
+          })
+          .catch(error => {
+            this.$message.error(error.message);
+            console.error('login failed: ', error)
           })
         } else {
           return false
