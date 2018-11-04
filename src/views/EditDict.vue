@@ -74,7 +74,6 @@ export default {
 
       if (promise !== null) {
         promise.then(() => {
-          this.$store.commit('user/setActiveMenu', '/')
           this.$router.push({ name: 'home' })
         })
       }

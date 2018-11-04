@@ -1,7 +1,6 @@
 const state = {
   isLogin: false,
-  uid: null,
-  activeMenu: '/'
+  uid: null
 }
 
 const getters = {
@@ -14,10 +13,6 @@ const mutations = {
   },
   setUid(state, uid) {
     state.uid = uid
-  },
-  setActiveMenu(state, menuId) {
-    console.log(menuId)
-    state.activeMenu = menuId
   }
 }
 
