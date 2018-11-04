@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       keyword: '',
-      activeMenu: '/home'
+      activeMenu: this.getLocationHash()
     }
   },
   watch: {
@@ -50,11 +50,15 @@ export default {
     setActiveMenu(menuId) {
       const menuItem = document.querySelector(menuId)
       if (menuItem !== null) {
+        menuItem.style.borderBottomColor = null
         menuItem.classList.add('is-active')
       }
     },
+    getLocationHash() {
+      return location.hash.replace('#', '').replace(/\?.+$/, '')
+    },
     updateActiveMenu() {
-      this.activeMenu = location.hash.replace('#', '').replace(/\?.+$/, '')
+      this.activeMenu = this.getLocationHash()
       let targetId = null
 
       if (this.activeMenu === '/home') {
@@ -66,8 +70,10 @@ export default {
       }
 
       if (targetId !== null) {
-        this.resetActiveMenu()
-        this.setActiveMenu(targetId)
+        this.$nextTick().then(() => {
+          this.resetActiveMenu()
+          this.setActiveMenu(targetId)
+        })
       }
     },
     handleSelect(key) {
