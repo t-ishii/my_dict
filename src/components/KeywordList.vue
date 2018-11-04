@@ -78,7 +78,7 @@ export default {
     keywords() {
       const searchKeyword = this.keyword.toLowerCase()
       return this.$store.state.dict.dicts.filter(dict => {
-        return searchKeyword === '' || dict.keyword.toLowerCase().startsWith(searchKeyword)
+        return searchKeyword === '' || dict.keyword.toLowerCase().includes(searchKeyword)
       })
     }
   },
