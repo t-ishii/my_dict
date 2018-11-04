@@ -99,7 +99,6 @@ export default {
       )
     },
     handleClickEdit(index, row) {
-      this.$store.commit('user/setActiveMenu', '/new')
       this.$router.push({ name: 'edit', query: { keyword: row.keyword }})
     }
   }

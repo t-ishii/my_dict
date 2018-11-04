@@ -23,6 +23,7 @@
 import Preview from '@/components/Preview.vue'
 import validate from '@/utils/validator'
 import MyDict from '@/utils/MyDict'
+import tools from '@/utils/tools'
 
 export default {
   name: 'EditDict',
@@ -55,7 +56,24 @@ export default {
       submitButton: isExistsKeyword ? 'Update' : 'Create'
     }
   },
+  watch: {
+    '$route': 'updateForm'
+  },
   methods: {
+    resetForm() {
+      this.form.keyword = ''
+      this.form.description = ''
+      this.submitButton = 'Create'
+    },
+    updateForm() {
+      const hash = tools.getLocationHash()
+      if (hash === '/new') {
+        this.resetForm()
+        this.$nextTick().then(() => {
+          this.$refs.form.clearValidate()
+        })
+      }
+    },
     onSubmit() {
       const btnType = this.submitButton
       let promise = null
@@ -74,7 +92,6 @@ export default {
 
       if (promise !== null) {
         promise.then(() => {
-          this.$store.commit('user/setActiveMenu', '/')
           this.$router.push({ name: 'home' })
         })
       }

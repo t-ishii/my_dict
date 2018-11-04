@@ -1,14 +1,14 @@
 <template>
   <el-menu :default-active="activeMenu" :router="true" mode="horizontal" @select="handleSelect">
     <template v-if="isLogin">
-      <el-menu-item index="/">
+      <el-menu-item index="/home" id="nav-home">
         <i class="el-icon-menu"></i>
       </el-menu-item>
-      <el-menu-item index="/new">
+      <el-menu-item index="/new" id="nav-new">
         <i class="el-icon-edit"></i>
       </el-menu-item>
     </template>
-    <el-menu-item index="/about">
+    <el-menu-item index="/about" id="nav-about">
       <i class="el-icon-question"></i>
     </el-menu-item>
     <template v-if="isLogin">
@@ -19,34 +19,63 @@
     </template>
   </el-menu>
 </template>
+
 <script>
 import firebase from 'firebase'
 import 'firebase/auth'
+
+import tools from '@/utils/tools'
 
 export default {
   name: 'NavMenu',
   data() {
     return {
-      keyword: ''
+      keyword: '',
+      activeMenu: tools.getLocationHash()
     }
+  },
+  watch: {
+    '$route': 'updateActiveMenu'
   },
   computed: {
     isLogin() {
       return this.$store.state.user.isLogin
-    },
-    activeMenu: {
-      set(menuId) {
-        console.log(`set: ${menuId}`)
-        this.$store.commit('user/setActiveMenu', menuId)
-      },
-      get() {
-        console.log(`get: ${this.$store.state.user.activeMenu}`)
-        return this.$store.state.user.activeMenu
-      }
     }
   },
   methods: {
-    handleSelect (key) {
+    resetActiveMenu() {
+      const activeMenu = document.querySelector('header .is-active')
+      if (activeMenu !== null) {
+        activeMenu.classList.remove('is-active')
+      }
+    },
+    setActiveMenu(menuId) {
+      const menuItem = document.querySelector(menuId)
+      if (menuItem !== null) {
+        menuItem.style.borderBottomColor = null
+        menuItem.classList.add('is-active')
+      }
+    },
+    updateActiveMenu() {
+      this.activeMenu = tools.getLocationHash()
+      let targetId = null
+
+      if (this.activeMenu === '/home') {
+        targetId = '#nav-home'
+      } else if (this.activeMenu === '/new') {
+        targetId = '#nav-new'
+      } else if (this.activeMenu === '/about') {
+        targetId = '#nav-about'
+      }
+
+      if (targetId !== null) {
+        this.$nextTick().then(() => {
+          this.resetActiveMenu()
+          this.setActiveMenu(targetId)
+        })
+      }
+    },
+    handleSelect(key) {
       if (key === '/login') {
         firebase.auth().signOut()
       }
