@@ -24,12 +24,14 @@
 import firebase from 'firebase'
 import 'firebase/auth'
 
+import tools from '@/utils/tools'
+
 export default {
   name: 'NavMenu',
   data() {
     return {
       keyword: '',
-      activeMenu: this.getLocationHash()
+      activeMenu: tools.getLocationHash()
     }
   },
   watch: {
@@ -54,11 +56,8 @@ export default {
         menuItem.classList.add('is-active')
       }
     },
-    getLocationHash() {
-      return location.hash.replace('#', '').replace(/\?.+$/, '')
-    },
     updateActiveMenu() {
-      this.activeMenu = this.getLocationHash()
+      this.activeMenu = tools.getLocationHash()
       let targetId = null
 
       if (this.activeMenu === '/home') {
