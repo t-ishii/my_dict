@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Preview.vue Whether it works even if no parameters are passed 1`] = `<div class="preview"></div>`;
+
+exports[`Preview.vue Whether markdown has been converted 1`] = `
+<div class="preview">
+  <h1 id="test">test</h1>
+  <ul>
+    <li>test1</li>
+    <li>test2</li>
+  </ul>
+</div>
+`;
+
+exports[`Preview.vue Whether the parameter is set 1`] = `
+<div class="preview">
+  <h1 id="test">test</h1>
+</div>
+`;
