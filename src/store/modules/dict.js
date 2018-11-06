@@ -13,9 +13,6 @@ const getters = {
 const mutations = {
   updateAll(state, dicts) {
     state.dicts = dicts
-  },
-  append(state, dict) {
-    state.dicts.push(dict)
   }
 }
 

@@ -29,6 +29,7 @@
     </el-dialog>
 
     <el-dialog
+      :title="selectRow.keyword"
       :visible.sync="previewDialogVisible">
       <preview :text="selectRow.description"></preview>
     </el-dialog>
