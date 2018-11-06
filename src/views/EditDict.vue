@@ -47,7 +47,8 @@ export default {
       },
       formRule: {
         keyword: [
-          { validator: validate.validateEmpty, trigger: 'blur' }
+          { validator: validate.validateEmpty, trigger: 'blur' },
+          { validator: validate.validateProhibitedChar, trigger: 'blur' }
         ],
         description: [
           { validator: validate.validateEmpty, trigger: 'blur' }
@@ -77,24 +78,30 @@ export default {
     onSubmit() {
       const btnType = this.submitButton
       let promise = null
-      
-      if (btnType === 'Create') {
-        promise = MyDict.insert(
-          this.$store.state.user.uid,
-          this.form
-        )
-      } else if (btnType === 'Update') {
-        promise = MyDict.update(
-          this.$store.state.user.uid,
-          this.form
-        )
-      }
 
-      if (promise !== null) {
-        promise.then(() => {
-          this.$router.push({ name: 'home' })
-        })
-      }
+      this.$refs.form.validate(valid => {
+        if (valid) {
+
+          if (btnType === 'Create') {
+            promise = MyDict.insert(
+              this.$store.state.user.uid,
+              this.form
+            )
+          } else if (btnType === 'Update') {
+            promise = MyDict.update(
+              this.$store.state.user.uid,
+              this.form
+            )
+          }
+
+          if (promise !== null) {
+            promise.then(() => {
+              this.$router.push({ name: 'home' })
+            })
+          }
+
+        }
+      })
     }
   }
 }
