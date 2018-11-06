@@ -15,3 +15,9 @@ export default {
   components: { NavMenu }
 }
 </script>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+}
+</style>
