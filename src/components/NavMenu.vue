@@ -30,7 +30,6 @@ export default {
   name: 'NavMenu',
   data() {
     return {
-      keyword: '',
       activeMenu: tools.getLocationHash()
     }
   },
