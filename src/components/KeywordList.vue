@@ -1,6 +1,6 @@
 <template>
   <div class="keyword-list">
-    <el-table :data="keywords" style="width: 100%;" @row-click="handleSelectRow">
+    <el-table :data="keywords" style="width: 100%;" @row-click="handleSelectRow" highlight-current-row>
       <el-table-column prop="keyword" label="keyword"></el-table-column>
       <el-table-column prop="description" label="description"></el-table-column>
       <el-table-column align="right">
