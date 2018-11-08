@@ -29,32 +29,35 @@ export default {
   name: 'EditDict',
   components: { Preview },
   data() {
-    const isExistsKeyword = !!this.$route.query.keyword
+    const isExistsQuery = !!this.$route.query.id
 
     let keyword = ''
     let description = ''
+    let id = ''
 
-    if (isExistsKeyword) {
-      keyword = this.$route.query.keyword
-      description = this.$store.getters['dict/find'](keyword).description
+    if (isExistsQuery) {
+      let dict = this.$store.getters['dict/find'](this.$route.query.id)
+      id = dict.id
+      keyword = dict.keyword
+      description = dict.description
     }
 
     return {
       activeName: 'form',
       form: {
+        id: id,
         keyword: keyword,
         description: description,
       },
       formRule: {
         keyword: [
-          { validator: validate.validateEmpty, trigger: 'blur' },
-          { validator: validate.validateProhibitedChar, trigger: 'blur' }
+          { validator: validate.validateEmpty, trigger: 'blur' }
         ],
         description: [
           { validator: validate.validateEmpty, trigger: 'blur' }
         ]
       },
-      submitButton: isExistsKeyword ? 'Update' : 'Create'
+      submitButton: isExistsQuery ? 'Update' : 'Create'
     }
   },
   watch: {
@@ -62,6 +65,7 @@ export default {
   },
   methods: {
     resetForm() {
+      this.form.id = ''
       this.form.keyword = ''
       this.form.description = ''
       this.submitButton = 'Create'

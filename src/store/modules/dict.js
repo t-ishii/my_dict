@@ -6,7 +6,7 @@ const state = {
 
 const getters = {
   find(state) {
-    return keyword => state.dicts.find(dict => dict.keyword === keyword)
+    return id => state.dicts.find(dict => dict.id === id)
   }
 }
 

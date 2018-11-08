@@ -69,6 +69,7 @@ export default {
       deleteDialogVisible: false,
       deleteRow: {},
       selectRow: {
+        id: '',
         keyword: '',
         description: ''
       },
@@ -96,11 +97,11 @@ export default {
       this.deleteDialogVisible = false
       MyDict.delete(
         this.$store.state.user.uid,
-        this.deleteRow.keyword
+        this.deleteRow.id
       )
     },
     handleClickEdit(index, row) {
-      this.$router.push({ name: 'edit', query: { keyword: row.keyword }})
+      this.$router.push({ name: 'edit', query: { id: row.id }})
     }
   }
 }
