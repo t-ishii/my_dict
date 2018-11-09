@@ -1,12 +1,12 @@
 <template>
-  <el-tabs v-model="activeName">
+  <el-tabs v-model="activeName" type="border-card">
     <el-tab-pane label="form" name="form">
-      <el-form :model="form" ref="form" :rules="formRule" label-width="120px" class="create-form">
+      <el-form :model="form" ref="form" :rules="formRule" label-width="120px">
         <el-form-item label="Keyword" :required="true" prop="keyword">
-          <el-input v-model="form.keyword"></el-input>
+          <el-input v-model="form.keyword" class="input-keyword"></el-input>
         </el-form-item>
         <el-form-item label="Description" :required="true" prop="description">
-          <el-input type="textarea" v-model="form.description" :rows="5"></el-input>
+          <el-input type="textarea" v-model="form.description" :rows="15"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSubmit">{{ submitButton }}</el-button>
@@ -29,32 +29,35 @@ export default {
   name: 'EditDict',
   components: { Preview },
   data() {
-    const isExistsKeyword = !!this.$route.query.keyword
+    const isExistsQuery = !!this.$route.query.id
 
     let keyword = ''
     let description = ''
+    let id = ''
 
-    if (isExistsKeyword) {
-      keyword = this.$route.query.keyword
-      description = this.$store.getters['dict/find'](keyword).description
+    if (isExistsQuery) {
+      let dict = this.$store.getters['dict/find'](this.$route.query.id)
+      id = dict.id
+      keyword = dict.keyword
+      description = dict.description
     }
 
     return {
       activeName: 'form',
       form: {
+        id: id,
         keyword: keyword,
         description: description,
       },
       formRule: {
         keyword: [
-          { validator: validate.validateEmpty, trigger: 'blur' },
-          { validator: validate.validateProhibitedChar, trigger: 'blur' }
+          { validator: validate.validateEmpty, trigger: 'blur' }
         ],
         description: [
           { validator: validate.validateEmpty, trigger: 'blur' }
         ]
       },
-      submitButton: isExistsKeyword ? 'Update' : 'Create'
+      submitButton: isExistsQuery ? 'Update' : 'Create'
     }
   },
   watch: {
@@ -62,6 +65,7 @@ export default {
   },
   methods: {
     resetForm() {
+      this.form.id = ''
       this.form.keyword = ''
       this.form.description = ''
       this.submitButton = 'Create'
@@ -108,7 +112,7 @@ export default {
 </script>
 
 <style scoped>
-.create-form {
+.input-keyword {
   width: 100%;
   max-width: 600px;
 }

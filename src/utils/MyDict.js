@@ -3,6 +3,10 @@ import 'firebase/database'
 
 const database = () => firebase.database()
 
+const getNextKey = (uid) => {
+  return database().ref().child(`dict/${uid}`).push().key
+}
+
 const MyDict = {
   listen(uid, callback) {
     database().ref(`dict/${uid}`).orderByKey().on('value', callback)
@@ -14,13 +18,14 @@ const MyDict = {
     return database().ref(`dict/${uid}`).once('value')
   },
   insert(uid, dict) {
-    return database().ref(`dict/${uid}/${dict.keyword}`).update(dict)
+    dict.id = getNextKey(uid)
+    return database().ref(`dict/${uid}/${dict.id}`).update(dict)
   },
   update(uid, dict) {
-    return database().ref(`dict/${uid}/${dict.keyword}`).set(dict)
+    return database().ref(`dict/${uid}/${dict.id}`).set(dict)
   },
-  delete(uid, keyword) {
-    return database().ref(`dict/${uid}/${keyword}`).remove()
+  delete(uid, id) {
+    return database().ref(`dict/${uid}/${id}`).remove()
   }
 }
 

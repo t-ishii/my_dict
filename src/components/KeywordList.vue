@@ -1,6 +1,6 @@
 <template>
   <div class="keyword-list">
-    <el-table :data="keywords" style="width: 100%;" @row-click="handleSelectRow">
+    <el-table :data="keywords" style="width: 100%;" @row-click="handleSelectRow" highlight-current-row>
       <el-table-column prop="keyword" label="keyword"></el-table-column>
       <el-table-column prop="description" label="description"></el-table-column>
       <el-table-column align="right">
@@ -69,6 +69,7 @@ export default {
       deleteDialogVisible: false,
       deleteRow: {},
       selectRow: {
+        id: '',
         keyword: '',
         description: ''
       },
@@ -96,11 +97,11 @@ export default {
       this.deleteDialogVisible = false
       MyDict.delete(
         this.$store.state.user.uid,
-        this.deleteRow.keyword
+        this.deleteRow.id
       )
     },
     handleClickEdit(index, row) {
-      this.$router.push({ name: 'edit', query: { keyword: row.keyword }})
+      this.$router.push({ name: 'edit', query: { id: row.id }})
     }
   }
 }
