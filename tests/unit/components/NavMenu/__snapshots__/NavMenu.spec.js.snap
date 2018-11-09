@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavMenu.vue Whether icons is displayed when logged in. 1`] = `
+<div class="header-wrapper">
+  <elmenu-stub mode="horizontal" defaultactive="/" router="true" menutrigger="hover" collapsetransition="true">
+    <elmenuitem-stub index="/home" id="nav-home"><i class="el-icon-menu"></i></elmenuitem-stub>
+    <elmenuitem-stub index="/new" id="nav-new"><i class="el-icon-edit"></i></elmenuitem-stub>
+    <elmenuitem-stub index="/about" id="nav-about"><i class="el-icon-question"></i></elmenuitem-stub>
+    <elsubmenu-stub index="setting" showtimeout="300" hidetimeout="300"><template></template>
+      <elmenuitem-stub index="/login">logout</elmenuitem-stub>
+    </elsubmenu-stub>
+  </elmenu-stub>
+</div>
+`;
+
+exports[`NavMenu.vue Whether only the about icon is displayed when not logged in. 1`] = `
+<div class="header-wrapper">
+  <elmenu-stub mode="horizontal" defaultactive="/" router="true" menutrigger="hover" collapsetransition="true">
+    <!---->
+    <elmenuitem-stub index="/about" id="nav-about"><i class="el-icon-question"></i></elmenuitem-stub>
+    <!---->
+  </elmenu-stub>
+</div>
+`;
