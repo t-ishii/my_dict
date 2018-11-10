@@ -17,16 +17,12 @@
       </el-table-column>
     </el-table>
 
-    <el-dialog
-      :visible.sync="deleteDialogVisible"
+    <confirm
       title="削除確認"
-      width="30%">
-      <span>{{ deleteRow.keyword }}を削除してもよろしいですか？</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="deleteDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="doDelete">OK</el-button>
-      </span>
-    </el-dialog>
+      :isShow.sync="deleteDialogVisible"
+      :question="deleteMessage"
+      @pressed-ng="deleteDialogVisible = false"
+      @pressed-ok="doDelete"></confirm>
 
     <el-dialog
       :title="selectRow.keyword"
@@ -40,6 +36,7 @@
 import MyDict from '@/utils/MyDict'
 import store from '@/store'
 import Preview from '@/components/Preview.vue'
+import Confirm from '@/components/Confirm.vue'
 
 const callbackDictList = (snapshot) => {
   if (snapshot.exists()) {
@@ -52,7 +49,8 @@ const callbackDictList = (snapshot) => {
 export default {
   name: 'KeywordList',
   components: {
-    Preview
+    Preview,
+    Confirm
   },
   created() {
     MyDict.listen(this.$store.state.user.uid, callbackDictList)
@@ -82,6 +80,9 @@ export default {
       return this.$store.state.dict.dicts.filter(dict => {
         return searchKeyword === '' || dict.keyword.toLowerCase().includes(searchKeyword)
       })
+    },
+    deleteMessage() {
+      return `${this.deleteRow.keyword}を削除してもよろしいですか？`
     }
   },
   methods: {
