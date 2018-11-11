@@ -4,12 +4,6 @@
       <el-table-column prop="keyword" label="keyword"></el-table-column>
       <el-table-column prop="description" label="description"></el-table-column>
       <el-table-column align="right">
-        <template slot="header" slot-scope="slot">
-          <el-input
-            v-model="keyword"
-            size="mini"
-            placeholder="keyword"/>
-        </template>
         <template slot-scope="scope">
           <el-button icon="el-icon-edit" type="info" circle @click.stop="handleClickEdit(scope.$index, scope.row)"></el-button>
           <el-button icon="el-icon-delete" type="danger" circle @click.stop="handleClickDelete(scope.$index, scope.row)"></el-button>
@@ -52,6 +46,12 @@ export default {
     Preview,
     Confirm
   },
+  props: {
+    keyword: {
+      type: String,
+      default: ''
+    }
+  },
   created() {
     MyDict.listen(this.$store.state.user.uid, callbackDictList)
     if (this.$store.state.dict.dicts.length === 0) {
@@ -70,8 +70,7 @@ export default {
         id: '',
         keyword: '',
         description: ''
-      },
-      keyword: ''
+      }
     }
   },
   computed: {
