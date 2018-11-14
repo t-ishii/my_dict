@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import firebase from 'firebase'
 import 'firebase/firebase-app'
 import firebaseConfig from './firebase.config.json'
+import './registerServiceWorker'
 
 firebase.initializeApp(firebaseConfig)
 
