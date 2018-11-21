@@ -19,6 +19,7 @@
       @pressed-ok="doDelete"></confirm>
 
     <el-dialog
+      fullscreen="true"
       :title="selectRow.keyword"
       :visible.sync="previewDialogVisible">
       <preview :text="selectRow.description"></preview>
@@ -106,3 +107,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.el-table .cell {
+  white-space: nowrap;
+}
+</style>

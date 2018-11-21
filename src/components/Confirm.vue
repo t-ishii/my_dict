@@ -1,5 +1,6 @@
 <template>
   <el-dialog
+    width="90%"
     :visible.sync="isShowConfirm"
     :title="title">
     <span>{{ question }}</span>
